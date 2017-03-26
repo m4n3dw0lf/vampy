@@ -21,20 +21,6 @@
 
 version = 0.1
 
-#Caso nao consiga importar o modulo de framework para qual a ferramenta depende, dar opcao de instala-lo
-try:
-	import frida
-except:
-	opt = raw_input("frida framework is required to run vampy, install(pip required)? [y/n]")
-	if opt.lower == "y" or opt.lower == "yes":
-		try:
-			os.system("pip install frida")
-		except Exception as e:
-			print "[!] Exception caught: {}".format(e)
-	else:
-		print "[-] Aborting ..."
-		exit(0)
-
 #Functions de Bibliotecas Default do Python
 #importa funcoes de regex
 import re
@@ -42,6 +28,19 @@ import re
 from sys import argv, stdout
 #importa chamadas de OS, chamar igual na linguagem C, system('comando do sistema')
 from os import system
+#Caso nao consiga importar o modulo de framework para qual a ferramenta depende, dar opcao de instala-lo
+try:
+	import frida
+except:
+	opt = raw_input("frida framework is required to run vampy, install(pip required)? [y/n]")
+	if opt.lower() == "y" or opt.lower() == "yes":
+		try:
+			system("pip install frida")
+		except Exception as e:
+			print "[!] Exception caught: {}".format(e)
+	else:
+		print "[-] Aborting ..."
+		exit(0)
 
 help = """\n
 VAMPY - Minimal tool for RAM dumping.
