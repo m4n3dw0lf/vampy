@@ -112,7 +112,7 @@ def DumpMemory(process, output):
 		#Regex para filtrar strings memoria por memoria, similar ao comando strings e logar em um unico arquivo
 		Raw = open("{}-vampy/{}.dump".format(output,str(hex(memory.base_address)))).read()
 		strings_found = re.findall("[A-Za-z0-9/\-:;.,_$%'!()[\]<> \#]+",Raw)
-		f = open("{}-vampy/strings.dump".format(output),"a+")
+		f = open("vampy.dump".format(output),"a+")
 		for string in strings_found:
 			if len(string) > 4:
 				k += 1
@@ -145,7 +145,7 @@ if __name__ == "__main__":
 		if process:
 				#Arquivo default de output
 				system("mkdir {}-vampy".format(output))
-				system("echo > {}-vampy/strings.dump".format(output))
+				system("echo > vampy.dump".format(output))
 				print banner
 				#inicia a function de dump de memoria com o processo e o diretorio para redirecionar o resultado passados de parametros
 				DumpMemory(process,output)

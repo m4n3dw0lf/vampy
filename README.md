@@ -6,10 +6,9 @@ VAMPY - Minimal tool for RAM dumping.
 
 ## Installation
 ```
-$git clone https://github.com/m4n3dw0lf/vampy
-$cd vampy
-$pip install frida
-$python vampy.py
+git clone https://github.com/m4n3dw0lf/vampy
+cd vampy
+python vampy.py
 ```
 
 ## Basics
