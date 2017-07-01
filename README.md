@@ -17,6 +17,8 @@ usage:
   -o, --output <DIRECTORY/PATH>		Output directory to store dump results
 					(strings of all dumped data will be sa
 					ved in the local directory)
+					
+  -u, --usb				Specify that the dump will be made on USB connected device.					
 
   -p, --process <NAME>			Name of application to dump
 
