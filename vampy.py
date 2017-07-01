@@ -1,5 +1,4 @@
 #!/bin/python2.7
-
 #vampy is a minimal python tool for proccess dumping
 
 # vampy is free software; you can redistribute it and/or
@@ -19,7 +18,7 @@
 #FRIDA USED AS FRAMEWORK https://github.com/frida https://github.com/frida/frida
 #BASED ON FRIDUMP https://github.com/Nightbringer21/fridump
 
-version = 0.1
+version = 0.2
 
 #Functions de Bibliotecas Default do Python
 #importa funcoes de regex
@@ -49,6 +48,8 @@ usage:
   -o, --output <DIRECTORY/PATH>		Output directory to store dump results
 					(strings of all dumped data will be sa
 					ved in the local directory)
+
+  -u, --usb				Specify that the dump will be made on USB connected device.
 
   -p, --process <NAME>			Name of application to dump
 
@@ -84,11 +85,14 @@ def DumpMemory(process, output):
 	try:
 		#Attach ao processo e comeca a utilizar a biblioteca de objetos/funcoes/atributos frida.
 		print "\n [+]Attaching to process: {}\n".format(process)
-		attached_process = frida.attach(process)
+		if not usb:
+			attached_process = frida.attach(process)
+		else:
+			attached_process = frida.get_usb_device().attach(process)
 	#Caso ocorra excecao, armazena output na variavel e
 	except Exception as e:
 		#metodo: .format preenche o valor nas chaves "{}" dentro da string
-		print "[!] Exception caught, a bug may need to be fixed: {}".format(e)
+		print "[!] Exception caught 1, a bug may need to be fixed: {}".format(e)
 		exit(0)
 
 	#Busca apenas read-only
@@ -127,6 +131,7 @@ if __name__ == "__main__":
 	try:
 		#Parse dos argumentos na inicializacao do programa
 		process = None
+		usb = False
 		output = "output"
 		for x in argv:
 
@@ -141,6 +146,9 @@ if __name__ == "__main__":
 
 			if x == "-o" or x == "--output":
 				output = argv[argv.index(x) + 1]
+
+			if x == "-u" or x == "--usb":
+				usb = True
 
 		if process:
 				#Arquivo default de output
@@ -157,5 +165,5 @@ if __name__ == "__main__":
 	except KeyboardInterrupt:
 			print "\n[!] Aborted..."
 	except Exception as e:
-			print "\n[!] Exception caught, a bug may need to be fixed: {}".format(e)
+			print "\n[!] Exception caught 2, a bug may need to be fixed: {}".format(e)
 
